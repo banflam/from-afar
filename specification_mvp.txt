@@ -25,4 +25,11 @@ But to be able to move forward and activate their account and send/receive messa
 - Self-description (minimum character requirement)
 - Last logged in date (so that people can avoid inactive users and have a better experience that way).
 
+## AFTER LOGGING IN / AFTER CREATING AN ACCOUNT
 
+- Inbox: a place for the user to see the letters that have arrived so they can read them, and letters that are still incoming (days/hours/minutes left until arrival listed)
+    - Sending user is listed.
+    - Three tabs: incoming, unread, read
+
+- New users page: a place seeing all other users so that the user can strike up a new correspondence as they wish.
+    - This will NOT be the default tab, the inbox will be the default tab since the aim is to foster deeper and more meaningul connections, not for shallow spamming of different people.
