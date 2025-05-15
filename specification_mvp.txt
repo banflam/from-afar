@@ -1,5 +1,13 @@
-2025-05-14T11:49:45-04:00
-
 Slogan: From Afar. Friends at heart. 
 
 Idea: send letters and make lifelong connections without the hassle. The time taken for delivery depends on geographical distance.
+
+# MINIMUM VIABLE PRODUCT: 
+
+Q. WHAT IS THE MOST BASIC FUNCTIONALITY WITH WHICH I WOULD BE HAPPY TO LAUNCH THIS PROJECT AND SHOW IT TO THE WORLD?
+
+When visiting the website, the user should be able to log in or create an account.
+
+When visiting the website, the user should also get some (very basic) information about the entire project -- what it is, how it works, why bother creating an account and using it, who this is for and who this is not for, etc.
+
+Website looks nice, no need for anything too fancy but it should be pleasant even though if it is just simple.
