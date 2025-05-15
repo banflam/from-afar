@@ -11,3 +11,18 @@ When visiting the website, the user should be able to log in or create an accoun
 When visiting the website, the user should also get some (very basic) information about the entire project -- what it is, how it works, why bother creating an account and using it, who this is for and who this is not for, etc.
 
 Website looks nice, no need for anything too fancy but it should be pleasant even though if it is just simple.
+
+## USER ACCOUNT FLOW (ACCOUNT CREATION)
+
+Probably will just use AWS Cognito for authentication. Put the AWS skills in practice but also it's really convenient with the federated identity stuff built-in etc.
+
+But to be able to move forward and activate their account and send/receive messages, the user must provide a few details:
+
+- Address (on a city basis, not on a specific house/location basis to ensure privacy).
+- username
+- gender (male/female/other)
+- Preferred languages (just selection, no ranking of the languages) --> WILL DO THIS IN THE FUTURE.
+- Self-description (minimum character requirement)
+- Last logged in date (so that people can avoid inactive users and have a better experience that way).
+
+
