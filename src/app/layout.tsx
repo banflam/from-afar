@@ -1,4 +1,3 @@
-// app/layout.tsx
 import React from "react";
 import AuthProviderWrapper from "@/components/AuthProvidedWrapper";
 
