@@ -1,6 +1,6 @@
 // app/layout.tsx
 import React from "react";
-import AuthProviderWrapper from "@/components/AuthProviderWrapper";
+import AuthProviderWrapper from "@/components/AuthProvidedWrapper";
 
 export default function RootLayout({
   children,
