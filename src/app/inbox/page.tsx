@@ -63,6 +63,13 @@ export default function InboxPage() {
                 <div className="mt-2 text-gray-800 whitespace-pre-wrap">
                   {letter.content}
                   </div>
+                  
+                  {tab === "incoming" && (
+                    <div className="text-xs text-orange-500 mt-2">
+                      Available in: {" "}
+                      {formatTimeDiff(new Date(letter.deliveryTime))}
+                      </div>
+                  )}
           ))
         }
       </div>
