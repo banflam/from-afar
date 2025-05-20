@@ -36,6 +36,8 @@ export async function GET(req: NextRequest) {
     );
 
     const read = letters.filter((l) => l.isRead);
+    
+    return NextResponse.json({incoming, unread, read});
   } catch (error) {
     console.error("Inbox error:", error);
     return NextResponse.json(
