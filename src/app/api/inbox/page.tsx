@@ -19,7 +19,17 @@ export default function InboxPage() {
       .then((res) => res.json())
       .then((data) => setLetters(data));
   }, []);
-  
+
+  const markAsRead = async (id: string) => {
+    await fetch("/api/letters/${id}/read", { method: "PATCH" });
+    // refresh inbox
+
+    const res = await fetch(`/api/inbox?recipientId=${recipientId}`);
+    const data = await res.json();
+    setLetters(data);
+  };
+
+  const selected = letters[tab];
 }
 
 function formatTimeDiff(deliveryTime: Date) {
