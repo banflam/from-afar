@@ -48,6 +48,26 @@ export default function InboxPage() {
           </button>
         ))}
       </div>
+      
+      <div className="space-y-4">
+        {selected.length === 0 && <p className="text-gray-500">No letters</p>}
+        
+
+        {
+          selected.map((letter) => (
+            <div key={letter.letter_id} className="border p-4 rounded shadow">
+              <div className="text-sm text-gray-500">
+                From: {letter.senderId} - Sent: {" "}
+                {new Date(letter.createdAt).toLocaleString()}
+                </div>
+                <div className="mt-2 text-gray-800 whitespace-pre-wrap">
+                  {letter.content}
+                  </div>
+          ))
+        }
+      </div>
+      
+
     </div>
   );
 }
