@@ -1,5 +1,5 @@
 export interface Letter {
-  id: string;
+  letter_id: string;
   senderId: string;
   recipientId: string;
   content: string;
