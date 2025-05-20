@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
   try {
     const result = await ddb.send(
       new QueryCommand({
-        TableName: TABLE_NAME,
+        TableName: "Letters",
         IndexName: RECIPIENT_INDEX_NAME,
         KeyConditionExpression: "recipientId = :rid",
         ExpressionAttributeValues: {
