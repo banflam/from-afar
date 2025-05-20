@@ -70,6 +70,13 @@ export default function InboxPage() {
                       {formatTimeDiff(new Date(letter.deliveryTime))}
                       </div>
                   )}
+                  
+                  {tab == "unread" && (
+                    <button
+                    onClick={() => markAsRead(letter.letter_id)}
+                    className="mt-2 bg-green-500 text-white px-3 py-1 text-sm rounded"
+                    >Mark as Read</button>
+                  )}
           ))
         }
       </div>
