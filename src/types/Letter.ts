@@ -6,5 +6,5 @@ export interface Letter {
   createdAt: string;
   deliveryTime: string;
   isRead: boolean;
-  readAt: string;
+  readAt?: string;
 }
