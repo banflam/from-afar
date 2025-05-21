@@ -59,7 +59,7 @@ export default function SendLetterPage() {
       <label className="block mb-2 text-sm font-medium">Message</label>
       <textarea
         value={content}
-        onChange={(e) => setRecipientId(e.target.value)}
+        onChange={(e) => setContent(e.target.value)}
         rows={6}
         className="w-full border px-3 py-2 rounded mb-4"
       />
