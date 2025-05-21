@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 
 export default function SendLetterPage() {
@@ -15,35 +16,35 @@ export default function SendLetterPage() {
       setError("Recipient and content are required");
       return;
     }
+
+    setSending(true);
+    setError("");
+    setSuccess(false);
+
+    const deliveryTime = new Date(
+      Date.now() + defaultDelayDays * 86400000
+    ).toISOString();
+
+    const res = await fetch("/api/letters", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        senderId,
+        recipientId,
+        content,
+        deliveryTime,
+      }),
+    });
+
+    if (!res.ok) {
+      setError("Failed to send letter");
+    } else {
+      setSuccess(true);
+      setContent("");
+      setRecipientId("");
+    }
+    setSending(false);
   };
-
-  setSending(true);
-  setError("");
-  setSuccess(false);
-
-  const deliveryTime = new Date(
-    Date.now() + defaultDelayDays * 86400000
-  ).toISOString();
-
-  const res = await fetch("/api/letters", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      senderId,
-      recipientId,
-      content,
-      deliveryTime,
-    }),
-  });
-
-  if (!res.ok) {
-    setError("Failed to send letter");
-  } else {
-    setSuccess(true);
-    setContent("");
-    setRecipientId("");
-  }
-  setSending(false);
 
   return (
     <div className="p-6 max-w-xl mx-auto">
