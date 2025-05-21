@@ -1,3 +1,4 @@
+import "./globals.css";
 import React from "react";
 import AuthProviderWrapper from "@/components/AuthProvidedWrapper";
 
