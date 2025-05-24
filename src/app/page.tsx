@@ -1,5 +1,6 @@
 "use client";
 import { useAuth } from "react-oidc-context";
+import Link from "next/link";
 
 export default function HomePage() {
   const auth = useAuth();
@@ -11,6 +12,10 @@ export default function HomePage() {
     return (
       <div>
         <h1>Welcome {auth.user?.profile.email}</h1>
+        <Link href="/inbox">Inbox</Link>
+        <br></br>
+        <Link href="/users">Users -- discover new people!</Link>
+        <br></br>
         <button onClick={() => auth.removeUser()}>Sign out</button>
       </div>
     );
