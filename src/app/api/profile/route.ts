@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ddb } from "@/lib/aws/dynamo";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
+
+type JwtPayload = {
+  sub: string;
+  email?: string;
+  "cognito:username": string;
+  [key: string]: string | number | boolean | undefined;
+};
 
 export async function POST(req: NextRequest) {
   const auth = req.headers.get("Authorization");
@@ -9,7 +16,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const token = auth.replace("Bearer", "");
-  const decoded: any = jwtDecode(token); // will contain the Cognito claims
+  const decoded = jwtDecode<JwtPayload>(token);
 
   const user = {
     userId: decoded.sub,
