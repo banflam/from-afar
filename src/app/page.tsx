@@ -19,6 +19,15 @@ export default function HomePage() {
     }
   }, [auth.isAuthenticated, auth.user?.access_token]);
 
+  const handleSignOut = () => {
+    auth.removeUser();
+    const clientId = "367g3sp8609p8pf8e22p13n3ta";
+    const logoutRedirect = "http://localhost:3000";
+    const cognitoDomain = "from-afar.auth.us-east-2.amazoncognito.com";
+
+    window.location.href = `https://${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${logoutRedirect}`;
+  };
+
   if (auth.isLoading) return <p>Loading...</p>;
   if (auth.error) return <p>Error: {auth.error.message}</p>;
 
@@ -33,7 +42,7 @@ export default function HomePage() {
         <br></br>
         <Link href="/users">Users -- discover new people!</Link>
         <br></br>
-        <button onClick={() => auth.removeUser()}>Sign out</button>
+        <button onClick={handleSignOut}>Sign out</button>
       </div>
     );
   }
