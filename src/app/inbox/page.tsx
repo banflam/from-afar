@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Letter } from "@/types/Letter";
+import Link from "next/link";
 
 function formatTimeDiff(deliveryTime: Date) {
   const diff = deliveryTime.getTime() - Date.now();
@@ -42,6 +43,9 @@ export default function InboxPage() {
 
   return (
     <div className="p-4 max-w-2xl mx-auto">
+      <Link href="/">
+        <h1>From Afar: friends at heart</h1>
+      </Link>
       <h1 className="text-2xl font-bold mb-4">Inbox</h1>
 
       <div className="flex gap-4 mb-6">

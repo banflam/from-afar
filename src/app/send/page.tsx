@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function SendLetterPage() {
   const [recipientId, setRecipientId] = useState("");
@@ -48,6 +49,9 @@ export default function SendLetterPage() {
 
   return (
     <div className="p-6 max-w-xl mx-auto">
+      <Link href="/">
+        <h1>From Afar: friends at heart</h1>
+      </Link>
       <h1 className="text-2xl font-bold mb-4">Send a Letter</h1>
       <label className="block mb-2 text-sm font-medium">Recipient ID</label>
       <input
