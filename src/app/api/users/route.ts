@@ -1,27 +1,15 @@
 import { NextResponse } from "next/server";
+import { ddb } from "@/lib/aws/dynamo";
+import { ScanCommand } from "@aws-sdk/lib-dynamodb";
 
+// TODO: find a way to cache the data / scan less frequently since DynamoDB table scans are the most expensive and time consuming!
 export async function GET() {
-  // mock users, hardcoded for now
-  const users = [
-    {
-      id: "user-001",
-      username: "wanderlust_will",
-      city: "Paris",
-      gender: "Male",
-    },
-    {
-      id: "user-001",
-      username: "skyline_sara",
-      city: "Tokyo",
-      gender: "Female",
-    },
-    {
-      id: "user-003",
-      username: "echo_writer",
-      city: "Cairo",
-      gender: "Other",
-    },
-  ];
-
-  return NextResponse.json(users);
+  const res = await ddb.send(
+    new ScanCommand({
+      TableName: "Users",
+    })
+  );
+  return NextResponse.json(
+    res.Items || "Error retrieving users from the DynamoDB Users table"
+  );
 }
