@@ -1,9 +1,23 @@
 "use client";
 import { useAuth } from "react-oidc-context";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function HomePage() {
   const auth = useAuth();
+
+  useEffect(() => {
+    if (auth.isAuthenticated && auth.user?.access_token) {
+      fetch("/api/profile", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${auth.user.access_token}`,
+        },
+      }).catch((err) => {
+        console.error("Error calling /api/profile:", err);
+      });
+    }
+  }, [auth.isAuthenticated, auth.user?.access_token]);
 
   if (auth.isLoading) return <p>Loading...</p>;
   if (auth.error) return <p>Error: {auth.error.message}</p>;
