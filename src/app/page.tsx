@@ -22,8 +22,7 @@ export default function HomePage() {
   const signOutRedirect = () => {
     const clientId = "367g3sp8609p8pf8e22p13n3ta";
     const logoutUri = "http://localhost:3000";
-    const cognitoDomain =
-      "https://us-east-2xymiyz8de.auth.us-east-2.amazoncognito.com";
+    const cognitoDomain = "us-east-2xymiyz8de.auth.us-east-2.amazoncognito.com";
     window.location.href = `https://${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
       logoutUri
     )}`;
