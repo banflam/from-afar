@@ -34,9 +34,6 @@ export default function HomePage() {
   if (auth.isAuthenticated) {
     return (
       <div>
-        <Link href="/">
-          <h1>From Afar: friends at heart</h1>
-        </Link>
         <h2>Welcome {auth.user?.profile.email}</h2>
         <Link href="/inbox">Inbox</Link>
         <br></br>
