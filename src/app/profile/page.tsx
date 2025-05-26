@@ -80,6 +80,15 @@ export default function ProfilePage() {
         rows={4}
         className="border px-3 py-2 mb-4 w-full rounded"
       ></textarea>
+      <button
+        onClick={handleSave}
+        disabled={saving}
+        className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+      >
+        {saving ? "Saving..." : "Save"}
+      </button>
+
+      {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );
 }
