@@ -5,6 +5,15 @@ import { useEffect } from "react";
 
 export default function HomePage() {
   const auth = useAuth();
+  const signOutRedirect = () => {
+    const clientId = "367g3sp8609p8pf8e22p13n3ta";
+    const logoutUri = "http://localhost:3000";
+    const cognitoDomain =
+      "https://us-east-2xymiyz8de.auth.us-east-2.amazoncognito.com";
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
+      logoutUri
+    )}`;
+  };
 
   useEffect(() => {
     if (auth.isAuthenticated && auth.user?.access_token) {
@@ -42,7 +51,7 @@ export default function HomePage() {
         <br></br>
         <Link href="/users">Users -- discover new people!</Link>
         <br></br>
-        <button onClick={handleSignOut}>Sign out</button>
+        <button onClick={() => signOutRedirect()}>Sign out</button>
       </div>
     );
   }
