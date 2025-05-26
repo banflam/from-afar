@@ -1,55 +1,56 @@
-# Slogan: From Afar. Friends at heart. 
+MVP:
 
-Idea: send letters and make lifelong connections without the hassle. The time taken for delivery depends on geographical distance.
+User visits the homepage and is able to login/signup.
 
-# MINIMUM VIABLE PRODUCT: 
+Sign up with email address and password.
 
-Q. WHAT IS THE MOST BASIC FUNCTIONALITY WITH WHICH I WOULD BE HAPPY TO LAUNCH THIS PROJECT AND SHOW IT TO THE WORLD?
+Complete profile in order to send letters and browser users: 
+    - gender (male/female/nonbinary)
+    - very short bio (will have minimum character length)
+    - Date of birth (age found automatically)
+    - nickname
+    - coordinates (latitude and longitude via geolocation, through the browser asking for this) --> will automatically populate the city,state, country after this is done.
 
-When visiting the website, the user should be able to log in or create an account.
+Browse profiles:
+    - all users displayed, in any order at this point
+        - nickname, age, location (city, state, country)
+        - ability to click a button to send a letter
+        
+Send letter:
+    - nickname auto-filled out
+    - write letter with CHARACTER MINIMUM ATTACHED
+    - confirmation before sending: are you sure you want to send, it will take time to be delivered?
 
-Should also get some basic information about the entire project -- what it is, how it works, why bother creating an account and using it, who this is for and who this is not for, etc.
+Inbox:
+    - Read tab,
+    - Delivered tab
+    - Unread tab/new tab,
+    - Incoming tab (also displaying a countdown until letter delivery, and from whom the letter is from)
+    - Sent tab (also displaying countdown until letter delivery, and the recipient)
+    
+Assorted Features:    
 
-No need to go overboard with this -- this is MVP only for now.
+    - The duration of letter delivery is calculated based on distance between the two people.
+    - There is a minimum delay of at least one day (24 hours)
+    - Email notification whenever:
+        - Someone has sent a letter to the user (who has sent it and from where)
+        - Letter delivered (who has sent it and from where)
 
-Website looks nice, should be pleasant even though if it is just simple.
+    Notifications for the arrival of letters
+    
+    
+Future thoughts:
 
-## USER ACCOUNT FLOW (ACCOUNT CREATION)
+    - Ability to block users
+    - Ability to report letters
+    - Switch modes -- flat delay instead of distance-based
+    - Creation of avatars for each person (important feature!!!)
+    - Addition of languages for each person, and any corresponding suport for them
+    - Last logged-in date visibility
+    - Filters for choosing users from /users
 
-Probably will just use AWS Cognito for authentication. Put the AWS skills in practice but also it's really convenient with the federated identity stuff built-in etc.
++++++++++++++++++++++++++++++++++++++++
 
-But to be able to move forward and activate their account and send/receive messages, the user must provide a few details:
-
-- Address (on a city basis, not on a specific house/location basis to ensure privacy).
-- username
-- gender (male/female/other)
-- Preferred languages (just selection, no ranking of the languages) --> WILL DO THIS IN THE FUTURE.
-- Self-description (minimum character requirement)
-- Last logged in date (so that people can avoid inactive users and have a better experience that way).
-
-## AFTER LOGGING IN / AFTER CREATING AN ACCOUNT
-
-- Inbox: a place for the user to see the letters that have arrived so they can read them, and letters that are still incoming (days/hours/minutes left until arrival listed)
-    - Sending user is listed.
-    - Three tabs: incoming, unread, read
-        - incoming: the letter must be displayed, along with the time left (in days, hours, minutes) until the letter is "delivered" and so available to be read.
-
-- New users page: a place seeing all other users so that the user can strike up a new correspondence as they wish.
-    - This will NOT be the default tab, the inbox will be the default tab since the aim is to foster deeper and more meaningul connections, not for shallow spamming of different people.
-
-++++++++++++++++++
-
-DEVELOPMENT PLAN
-
-BACKEND FIRST:
-
-AWS Cognito + backend user model
-User registration API and connect Cognito user with DB
-Letter model and logic for delivery delay
-Inbox, sending, and user discovery
-
-FRONTEND:
-
-Routing and authentication
-Profile creation screen
-Inbox view with filters
+Basic Idea: be penpals online, delay included.
+Letters take time to be delivered to encourage more thoughtful communication.
+Time taken for delivery depends on geographical distance -- subject to change (maybe better idea for it to just have a short delay?)
