@@ -72,6 +72,14 @@ export default function ProfilePage() {
         <option value="female">Female</option>
         <option value="other">Other</option>
       </select>
+
+      <label className="block mb-2 text-sm">Bio</label>
+      <textarea
+        value={profile.bio}
+        onChange={(e) => handleChange("bio", e.target.value)}
+        rows={4}
+        className="border px-3 py-2 mb-4 w-full rounded"
+      ></textarea>
     </div>
   );
 }
