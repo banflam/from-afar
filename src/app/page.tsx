@@ -5,15 +5,6 @@ import { useEffect } from "react";
 
 export default function HomePage() {
   const auth = useAuth();
-  const signOutRedirect = () => {
-    const clientId = "367g3sp8609p8pf8e22p13n3ta";
-    const logoutUri = "http://localhost:3000";
-    const cognitoDomain =
-      "https://us-east-2xymiyz8de.auth.us-east-2.amazoncognito.com";
-    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
-      logoutUri
-    )}`;
-  };
 
   useEffect(() => {
     if (auth.isAuthenticated && auth.user?.access_token) {
@@ -28,13 +19,14 @@ export default function HomePage() {
     }
   }, [auth.isAuthenticated, auth.user?.access_token]);
 
-  const handleSignOut = () => {
-    auth.removeUser();
+  const signOutRedirect = () => {
     const clientId = "367g3sp8609p8pf8e22p13n3ta";
-    const logoutRedirect = "http://localhost:3000";
-    const cognitoDomain = "from-afar.auth.us-east-2.amazoncognito.com";
-
-    window.location.href = `https://${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${logoutRedirect}`;
+    const logoutUri = "http://localhost:3000";
+    const cognitoDomain =
+      "https://us-east-2xymiyz8de.auth.us-east-2.amazoncognito.com";
+    window.location.href = `https://${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
+      logoutUri
+    )}`;
   };
 
   if (auth.isLoading) return <p>Loading...</p>;
