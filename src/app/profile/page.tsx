@@ -25,48 +25,53 @@ export default function ProfilePage() {
         setLoading(false);
       });
   }, []);
-  
+
   const handleChange = (field: keyof Profile, value: string) => {
     if (!profile) return;
-    setProfile({...profile, [field]: value});
+    setProfile({ ...profile, [field]: value });
   };
 
   const handleSave = async () => {
     setSaving(true);
     setError("");
-    
+
     const res = await fetch("/api/profile", {
-        method: "PATCH",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(profile),
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(profile),
     });
-    
+
     if (!res.ok) {
-        setError("Failed to save profile");
+      setError("Failed to save profile");
     }
-    
+
     setSaving(false);
   };
 
   if (loading) return <p className="p-4">Loading...</p>;
-  if (!profile) return <p className="p-4 text-red-500">{error}</p>
-  
-  
+  if (!profile) return <p className="p-4 text-red-500">{error}</p>;
+
   return (
     <div className="max-w-xl mx-auto p-6">
-    <h1 className="text-2xl font-bold mb-4">Edit Profile</h1>
-    <label className="block mb-2 text-sm">City</label>
-    <input
-    type="text"
-    value={profile.city}
-    onChange={(e) => handleChange("city", e.target.value)}
-    className = "border px-3 py-2 mb-4 w-full rounded"
-    >
-    </input>
+      <h1 className="text-2xl font-bold mb-4">Edit Profile</h1>
+      <label className="block mb-2 text-sm">City</label>
+      <input
+        type="text"
+        value={profile.city}
+        onChange={(e) => handleChange("city", e.target.value)}
+        className="border px-3 py-2 mb-4 w-full rounded"
+      ></input>
 
-    
+      <label className="block mb-2 text-sm">Gender</label>
+      <select
+        value={profile.gender}
+        onChange={(e) => handleChange("gender", e.target.value)}
+        className="border px-3 py-2 mb-4 w-full rounded"
+      >
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
     </div>
-  )
-  
-
+  );
 }
