@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     new PutCommand({
       TableName: "Users",
       Item: user,
-      ConditionExpression: "attribute_not_exists(userId)", // do not overwriter an existing userId
+      ConditionExpression: "attribute_not_exists(userId)", // do not overwrite an existing userId
     })
   );
 
