@@ -52,5 +52,21 @@ export default function ProfilePage() {
   if (!profile) return <p className="p-4 text-red-500">{error}</p>
   
   
+  return (
+    <div className="max-w-xl mx-auto p-6">
+    <h1 className="text-2xl font-bold mb-4">Edit Profile</h1>
+    <label className="block mb-2 text-sm">City</label>
+    <input
+    type="text"
+    value={profile.city}
+    onChange={(e) => handleChange("city", e.target.value)}
+    className = "border px-3 py-2 mb-4 w-full rounded"
+    >
+    </input>
+
+    
+    </div>
+  )
+  
 
 }
