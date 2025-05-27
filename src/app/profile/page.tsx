@@ -97,6 +97,29 @@ export default function ProfilePage() {
         <option value="other">Other</option>
       </select>
 
+      <label className="block mb-2 text-sm">Username</label>
+      <input
+        type="text"
+        value={profile.username}
+        onChange={(e) => handleChange("username", e.target.value)}
+        className="border px-3 py-2 mb-4 w-full rounded"
+      />
+
+      <label className="block mb-2 text-sm">Date of Birth</label>
+      <input
+        type="date"
+        value={profile.dateOfBirth}
+        onChange={(e) => handleChange("dateOfBirth", e.target.value)}
+        className="border px-3 py-2 mb-4 w-full rounded"
+      />
+
+      {profile.latitude && profile.longitude && (
+        <p className="text-sm text-gray-500 mb-4">
+          Location detected: {profile.latitude.toFixed(3)},{" "}
+          {profile.longitude.toFixed(3)}
+        </p>
+      )}
+
       <label className="block mb-2 text-sm">Bio</label>
       <textarea
         value={profile.bio}
