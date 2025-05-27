@@ -22,6 +22,10 @@ export default function ProfilePage() {
   const auth = useAuth();
 
   useEffect(() => {
+    const token = auth.user?.access_token;
+
+    if (!token) return;
+
     fetch("/api/profile")
       .then((res) => res.json())
       .then((data) => {
@@ -51,7 +55,7 @@ export default function ProfilePage() {
         }
       );
     }
-  }, []);
+  }, [auth.user]);
 
   const handleChange = (field: keyof Profile, value: string) => {
     if (!profile) return;
@@ -61,9 +65,9 @@ export default function ProfilePage() {
   const handleSave = async () => {
     setSaving(true);
     setError("");
-    
+
     const token = auth.user?.access_token;
-    
+
     if (!token) {
       setError("Not authenticated");
       setSaving(false);
