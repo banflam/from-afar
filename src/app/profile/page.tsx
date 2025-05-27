@@ -67,42 +67,46 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const token = auth.user?.access_token;
-
     if (!token) return;
 
-    fetch("/api/profile", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setProfile(data);
-        setLoading(false);
-      })
-      .catch(() => {
+    const loadProfileWithLocation = async () => {
+      try {
+        const res = await fetch("/api/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await res.json();
+
+        if (!("geolocation" in navigator)) {
+          setError("Geolocation not supported");
+          setLoading(false);
+          return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setProfile({
+              ...data,
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            });
+            setLoading(false);
+          },
+          (err) => {
+            console.warn("Geolocation error:", err);
+            setError("Geolocation permission denied or failed.");
+            setLoading(false);
+          }
+        );
+      } catch (err) {
+        console.error("Failed to load profile", err);
         setError("Failed to load profile");
         setLoading(false);
-      });
+      }
+    };
 
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setProfile((prev) =>
-            prev
-              ? {
-                  ...prev,
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                }
-              : null
-          );
-        },
-        (err) => {
-          console.warn("Geolocation error:", err);
-        }
-      );
-    }
+    loadProfileWithLocation();
   }, [auth.user]);
 
   const handleChange = (field: keyof Profile, value: string) => {
