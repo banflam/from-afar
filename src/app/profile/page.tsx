@@ -29,6 +29,25 @@ export default function ProfilePage() {
         setError("Failed to load profile");
         setLoading(false);
       });
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setProfile((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude,
+                }
+              : null
+          );
+        },
+        (err) => {
+          console.warn("Geolocation error:", err);
+        }
+      );
+    }
   }, []);
 
   const handleChange = (field: keyof Profile, value: string) => {
