@@ -10,7 +10,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head></head>
       <body>
         <h1>
           <Link href="/">From Afar: friends at heart</Link>
