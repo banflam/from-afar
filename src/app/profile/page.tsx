@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useAuth } from "react-oidc-context";
 
 type Profile = {
   email: string;
@@ -17,6 +18,8 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+
+  const auth = useAuth();
 
   useEffect(() => {
     fetch("/api/profile")
@@ -58,6 +61,14 @@ export default function ProfilePage() {
   const handleSave = async () => {
     setSaving(true);
     setError("");
+    
+    const token = auth.user?.access_token;
+    
+    if (!token) {
+      setError("Not authenticated");
+      setSaving(false);
+      return;
+    }
 
     const res = await fetch("/api/profile", {
       method: "PATCH",

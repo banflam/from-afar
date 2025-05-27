@@ -13,11 +13,12 @@ type JwtPayload = {
 const TABLE = "Users";
 
 export async function PATCH(req: NextRequest) {
+  console.log("PATH /api/profile called");
   const auth = req.headers.get("Authorization");
   if (!auth)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const token = auth.replace("Bearer", "");
+  const token = auth.replace("Bearer ", "");
   const decoded = jwtDecode<JwtPayload>(token);
   const userId = decoded.sub;
 
