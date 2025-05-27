@@ -21,9 +21,10 @@ export default function HomePage() {
 
   const signOutRedirect = () => {
     const clientId = "6o2uld1loe0t9f07smc7sb98n1";
-    const logoutUri = "http://localhost:3000";
-    const cognitoDomain = "us-east-2kevkqoqoa.auth.us-east-2.amazoncognito.com";
-    window.location.href = `https://${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
+    const logoutUri = "<logout uri>";
+    const cognitoDomain =
+      "https://us-east-2kevkqoqoa.auth.us-east-2.amazoncognito.com";
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
       logoutUri
     )}`;
   };
@@ -39,10 +40,15 @@ export default function HomePage() {
         <br></br>
         <Link href="/users">Users -- discover new people!</Link>
         <br></br>
-        <button onClick={() => signOutRedirect()}>Sign out</button>
+        <button onClick={() => auth.removeUser()}>Sign out</button>
       </div>
     );
   }
 
-  return <button onClick={() => auth.signinRedirect()}>Sign in</button>;
+  return (
+    <div>
+      <button onClick={() => auth.signinRedirect()}>Sign in</button>
+      <button onClick={() => signOutRedirect()}>Sign out</button>
+    </div>
+  );
 }
