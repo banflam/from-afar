@@ -10,10 +10,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Link href="/">
-        <h1>From Afar: friends at heart</h1>
-      </Link>
+      <head></head>
       <body>
+        <h1>
+          <Link href="/">From Afar: friends at heart</Link>
+        </h1>
         <AuthProviderWrapper>{children}</AuthProviderWrapper>
       </body>
     </html>

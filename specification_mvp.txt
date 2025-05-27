@@ -1,8 +1,8 @@
 MVP:
 
-User visits the homepage and is able to login/signup.
+DONEUser visits the homepage and is able to login/signup.
 
-Sign up with email address and password.
+DONESign up with email address and password.
 
 Complete profile in order to send letters and browser users: 
     - gender (male/female/nonbinary)
@@ -10,6 +10,7 @@ Complete profile in order to send letters and browser users:
     - Date of birth (age found automatically)
     - nickname
     - coordinates (latitude and longitude via geolocation, through the browser asking for this) --> will automatically populate the city,state, country after this is done.
+    - completing profile creates a new user with a unique username who is added to a DynamoDB table along with their email.
 
 Browse profiles:
     - all users displayed, in any order at this point
