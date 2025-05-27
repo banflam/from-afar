@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ddb } from "@/lib/aws/dynamo";
 import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
-import { error } from "console";
-import { stat } from "fs";
 
 export async function PATCH(
   req: NextRequest,

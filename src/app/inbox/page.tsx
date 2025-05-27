@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Letter } from "@/types/Letter";
-import Link from "next/link";
 
 function formatTimeDiff(deliveryTime: Date) {
   const diff = deliveryTime.getTime() - Date.now();

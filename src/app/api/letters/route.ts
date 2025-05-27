@@ -3,8 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 import { Letter } from "@/types/Letter";
 import { ddb } from "@/lib/aws/dynamo";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { receiveMessageOnPort } from "worker_threads";
-import { error } from "console";
 
 export async function POST(req: NextRequest) {
   try {

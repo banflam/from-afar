@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { seteuid } from "process";
 import Link from "next/link";
 
 type User = {

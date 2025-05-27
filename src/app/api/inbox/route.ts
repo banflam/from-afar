@@ -2,9 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ddb } from "@/lib/aws/dynamo";
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { Letter } from "@/types/Letter";
-import { error } from "console";
 
-const TABLE_NAME = process.env.DYNAMO_TABLE_LETTERS!;
 const RECIPIENT_INDEX_NAME = "recipientId-index";
 
 export async function GET(req: NextRequest) {
@@ -36,8 +34,8 @@ export async function GET(req: NextRequest) {
     );
 
     const read = letters.filter((l) => l.isRead);
-    
-    return NextResponse.json({incoming, unread, read});
+
+    return NextResponse.json({ incoming, unread, read });
   } catch (error) {
     console.error("Inbox error:", error);
     return NextResponse.json(
