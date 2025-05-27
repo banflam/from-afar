@@ -40,6 +40,9 @@ export default function HomePage() {
         <br></br>
         <Link href="/users">Users -- discover new people!</Link>
         <br></br>
+        <Link href="/profile">
+          Profile -- must complete your profile before you can send letters!
+        </Link>
         <button onClick={() => auth.removeUser()}>Sign out</button>
       </div>
     );

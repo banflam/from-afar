@@ -8,7 +8,7 @@ Complete profile in order to send letters and browser users:
     - gender (male/female/nonbinary)
     - very short bio (will have minimum character length)
     - Date of birth (age found automatically)
-    - nickname
+    - username
     - coordinates (latitude and longitude via geolocation, through the browser asking for this) --> will automatically populate the city,state, country after this is done.
     - completing profile creates a new user with a unique username who is added to a DynamoDB table along with their email.
 

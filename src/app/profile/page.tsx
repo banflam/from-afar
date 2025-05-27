@@ -2,10 +2,14 @@
 import { useEffect, useState } from "react";
 
 type Profile = {
+  email: string;
   username: string;
   city: string;
   gender: string;
   bio: string;
+  dateOfBirth: string; //ISO string
+  latitude: number | null;
+  longitude: number | null;
 };
 
 export default function ProfilePage() {
