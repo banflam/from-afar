@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+MVP:
 
-## Getting Started
+DONEUser visits the homepage and is able to login/signup.
 
-First, run the development server:
+DONESign up with email address and password.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Complete profile in order to send letters and browser users: 
+    - gender (male/female/nonbinary)
+    - very short bio (will have minimum character length)
+    - Date of birth (age found automatically)
+    - nickname
+    - coordinates (latitude and longitude via geolocation, through the browser asking for this) --> will automatically populate the city,state, country after this is done.
+    - completing profile creates a new user with a unique username who is added to a DynamoDB table along with their email.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Browse profiles:
+    - all users displayed, in any order at this point
+        - nickname, age, location (city, state, country)
+        - ability to click a button to send a letter
+        
+Send letter:
+    - nickname auto-filled out
+    - write letter with CHARACTER MINIMUM ATTACHED
+    - confirmation before sending: are you sure you want to send, it will take time to be delivered?
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Inbox:
+    - Read tab,
+    - Delivered tab
+    - Unread tab/new tab,
+    - Incoming tab (also displaying a countdown until letter delivery, and from whom the letter is from)
+    - Sent tab (also displaying countdown until letter delivery, and the recipient)
+    
+Assorted Features:    
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    - The duration of letter delivery is calculated based on distance between the two people.
+    - There is a minimum delay of at least one day (24 hours)
+    - Email notification whenever:
+        - Someone has sent a letter to the user (who has sent it and from where)
+        - Letter delivered (who has sent it and from where)
 
-## Learn More
+    Notifications for the arrival of letters
+    
+    
+Future thoughts:
 
-To learn more about Next.js, take a look at the following resources:
+    - Ability to block users
+    - Ability to report letters
+    - Switch modes -- flat delay instead of distance-based
+    - Creation of avatars for each person (important feature!!!)
+    - Addition of languages for each person, and any corresponding suport for them
+    - Last logged-in date visibility
+    - Filters for choosing users from /users
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
++++++++++++++++++++++++++++++++++++++++
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Basic Idea: be penpals online, delay included.
+Letters take time to be delivered to encourage more thoughtful communication.
+Time taken for delivery depends on geographical distance -- subject to change (maybe better idea for it to just have a short delay?)
