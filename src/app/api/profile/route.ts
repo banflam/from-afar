@@ -22,6 +22,7 @@ export async function PATCH(req: NextRequest) {
   const userId = decoded.sub;
 
   const body = await req.json();
+  console.log("body looks like:", body);
 
   const updates = {
     city: body.city,

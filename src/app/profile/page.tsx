@@ -21,12 +21,60 @@ export default function ProfilePage() {
 
   const auth = useAuth();
 
+  const handleSave = async () => {
+    if (!auth.user?.access_token) {
+      setError("Missing auth token");
+      return;
+    }
+
+    if (!profile) {
+      setError("No profile data");
+      return;
+    }
+
+    if (profile.latitude == null || profile.longitude == null) {
+      setError("Location not yet available, please allow location access");
+      setSaving(false);
+      return;
+    }
+
+    setSaving(true);
+    setError("");
+
+    const token = auth.user?.access_token;
+
+    if (!token) {
+      setError("Not authenticated");
+      setSaving(false);
+      return;
+    }
+
+    const res = await fetch("/api/profile", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth.user.access_token}`,
+      },
+      body: JSON.stringify(profile),
+    });
+
+    if (!res.ok) {
+      setError("Failed to save profile");
+    }
+
+    setSaving(false);
+  };
+
   useEffect(() => {
     const token = auth.user?.access_token;
 
     if (!token) return;
 
-    fetch("/api/profile")
+    fetch("/api/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setProfile(data);
@@ -60,34 +108,6 @@ export default function ProfilePage() {
   const handleChange = (field: keyof Profile, value: string) => {
     if (!profile) return;
     setProfile({ ...profile, [field]: value });
-  };
-
-  const handleSave = async () => {
-    setSaving(true);
-    setError("");
-
-    const token = auth.user?.access_token;
-
-    if (!token) {
-      setError("Not authenticated");
-      setSaving(false);
-      return;
-    }
-
-    const res = await fetch("/api/profile", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${auth.user?.access_token}`,
-      },
-      body: JSON.stringify(profile),
-    });
-
-    if (!res.ok) {
-      setError("Failed to save profile");
-    }
-
-    setSaving(false);
   };
 
   if (loading) return <p className="p-4">Loading...</p>;
@@ -147,7 +167,9 @@ export default function ProfilePage() {
       ></textarea>
       <button
         onClick={handleSave}
-        disabled={saving}
+        disabled={
+          saving || profile?.latitude == null || profile?.longitude == null
+        }
         className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
       >
         {saving ? "Saving..." : "Save"}
