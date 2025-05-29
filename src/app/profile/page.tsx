@@ -56,6 +56,7 @@ export default function ProfilePage() {
     }
 
     console.log("C: FETCHING THE API/PROFILE (CALL TO IT)");
+    console.log("profile to be sent:", profile);
     const res = await fetch("/api/profile", {
       method: "PATCH",
       headers: {
@@ -139,10 +140,13 @@ export default function ProfilePage() {
 
       <label className="block mb-2 text-sm">Gender</label>
       <select
-        value={profile.gender}
+        value={profile.gender || ""}
         onChange={(e) => handleChange("gender", e.target.value)}
         className="border px-3 py-2 mb-4 w-full rounded"
       >
+        <option value="" disabled>
+          Select gender
+        </option>
         <option value="male">Male</option>
         <option value="female">Female</option>
         <option value="other">Other</option>

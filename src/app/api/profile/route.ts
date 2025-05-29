@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ddb } from "@/lib/aws/dynamo";
 import { GetCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { jwtDecode } from "jwt-decode";
-import { ScanCommand } from "@aws-sdk/client-dynamodb";
+//import { ScanCommand } from "@aws-sdk/client-dynamodb";
 
 type JwtPayload = {
   sub: string;
@@ -16,13 +16,20 @@ const TABLE = "Users";
 export async function PATCH(req: NextRequest) {
   const auth = req.headers.get("Authorization");
   if (!auth)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      {
+        error:
+          "Unauthorized: call to /api/profile PATCH request is unauthorized since the Authorization header is missing",
+      },
+      { status: 401 }
+    );
 
   const token = auth.replace("Bearer ", "");
   const decoded = jwtDecode<JwtPayload>(token);
   const userId = decoded.sub;
 
   const body = await req.json();
+  /*
   const desiredUsername = body.username;
 
   const existing = await ddb.send(
@@ -34,7 +41,6 @@ export async function PATCH(req: NextRequest) {
 
   const currentUsername = existing.Item?.username;
 
-  /*
   if (currentUsername && currentUsername !== desiredUsername) {
     return NextResponse.json(
       { error: "Username cannot be changed once set" },
@@ -62,6 +68,7 @@ export async function PATCH(req: NextRequest) {
   */
 
   const updates = {
+    username: body.username,
     city: body.city,
     gender: body.gender,
     bio: body.bio,
@@ -75,8 +82,9 @@ export async function PATCH(req: NextRequest) {
       new UpdateCommand({
         TableName: TABLE,
         Key: { userId },
-        UpdateExpression: `SET city = :city, gender = :gender, bio = :bio, dateOfBirth = :dob, latitude = :lat, longitude = :long`,
+        UpdateExpression: `SET username=:username, city = :city, gender = :gender, bio = :bio, dateOfBirth = :dob, latitude = :lat, longitude = :long`,
         ExpressionAttributeValues: {
+          ":username": updates.username,
           ":city": updates.city,
           ":gender": updates.gender,
           ":bio": updates.bio,
