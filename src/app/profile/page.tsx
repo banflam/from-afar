@@ -144,6 +144,7 @@ export default function ProfilePage() {
         type="text"
         value={profile.username}
         onChange={(e) => handleChange("username", e.target.value)}
+        disabled={!!profile.username}
         className="border px-3 py-2 mb-4 w-full rounded"
       />
 
