@@ -142,7 +142,7 @@ export default function ProfilePage() {
       <label className="block mb-2 text-sm">Username</label>
       <input
         type="text"
-        value={profile.username}
+        value={profile.username || ""}
         onChange={(e) => handleChange("username", e.target.value)}
         disabled={!!profile.username}
         className="border px-3 py-2 mb-4 w-full rounded"
