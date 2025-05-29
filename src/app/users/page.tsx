@@ -34,14 +34,10 @@ export default function UsersPage() {
               </p>
             </div>
 
-            <Link
-              href={{
-                pathname: "/send",
-                query: { recipientId: user.id },
-              }}
-              className="text-blue-600 underline text-sm"
-            >
-              View profile
+            <Link href={`/users/${user.username}`}>
+              <button className="bg-gray-200 px-3 py-1 rounded">
+                View Profile
+              </button>
             </Link>
           </div>
         ))}
