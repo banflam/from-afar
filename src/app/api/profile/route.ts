@@ -34,6 +34,7 @@ export async function PATCH(req: NextRequest) {
 
   const currentUsername = existing.Item?.username;
 
+  /*
   if (currentUsername && currentUsername !== desiredUsername) {
     return NextResponse.json(
       { error: "Username cannot be changed once set" },
@@ -58,6 +59,7 @@ export async function PATCH(req: NextRequest) {
       );
     }
   }
+  */
 
   const updates = {
     city: body.city,

@@ -21,13 +21,18 @@ export default function ProfilePage() {
 
   const auth = useAuth();
 
+  console.log("A: Entered the Profile Page function");
+
   const handleSave = async () => {
+    console.log("B: handleSave function invoked");
     if (!auth.user?.access_token) {
+      console.log("Access token missing");
       setError("Missing auth token");
       return;
     }
 
     if (!profile) {
+      console.log("No profile data?");
       setError("No profile data");
       return;
     }
@@ -44,11 +49,13 @@ export default function ProfilePage() {
     const token = auth.user?.access_token;
 
     if (!token) {
+      console.log("TOKEN MISSING");
       setError("Not authenticated");
       setSaving(false);
       return;
     }
 
+    console.log("C: FETCHING THE API/PROFILE (CALL TO IT)");
     const res = await fetch("/api/profile", {
       method: "PATCH",
       headers: {
@@ -58,6 +65,8 @@ export default function ProfilePage() {
       body: JSON.stringify(profile),
     });
 
+    console.log("D: FINISHED FETCHING THE PROFILE");
+    console.log("res is:", res);
     if (!res.ok) {
       setError("Failed to save profile");
     }
