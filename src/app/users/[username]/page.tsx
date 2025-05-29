@@ -2,10 +2,19 @@
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 
+type PublicProfile = {
+    username: string;
+    age: number;
+    bio: string;
+    gender: string;
+    city: string;
+    state?: string;
+    country?: string;
+}
 
 export default function PublicProfilePage() {
     const {username } = useParams();
-    const [profile, setProfile] = useState(null);
+    const [profile, setProfile] = useState<PublicProfile | null>(null);
     const [error, setError] = useState("");
 
     useEffect(() => {
