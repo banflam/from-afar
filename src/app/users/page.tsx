@@ -41,7 +41,7 @@ export default function UsersPage() {
               }}
               className="text-blue-600 underline text-sm"
             >
-              Write Letter
+              View profile
             </Link>
           </div>
         ))}

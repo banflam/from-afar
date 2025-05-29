@@ -4,11 +4,13 @@ DONEUser visits the homepage and is able to login/signup.
 
 DONESign up with email address and password.
 
-Complete profile in order to send letters and browser users: - gender (male/female/nonbinary) - very short bio (will have minimum character length) - Date of birth (age found automatically) - username - coordinates (latitude and longitude via geolocation, through the browser asking for this) --> will automatically populate the city,state, country after this is done. - completing profile creates a new user with a unique username who is added to a DynamoDB table along with their email.
+DONEComplete profile in order to send letters and browser users: - gender (male/female/nonbinary) - very short bio (IGNORE FOR NOW -- will have minimum character length) - Date of birth (age found automatically) - username - coordinates (latitude and longitude via geolocation, through the browser asking for this) --> will automatically populate the city,state, country after this is done. - completing profile creates a new user with a unique username who is added to a DynamoDB table along with their email.
 
-Browse profiles: - all users displayed, in any order at this point - nickname, age, location (city, state, country) - ability to click a button to send a letter
+Browse profiles: - all users displayed, in any order at this point, anything goes for now there should just be a way to click and open the link on it - nickname, age, location (city, state, country) - ability to click a button to view profile (and then send a letter if you so choose)
 
-Send letter: - nickname auto-filled out - write letter with CHARACTER MINIMUM ATTACHED - confirmation before sending: are you sure you want to send, it will take time to be delivered?
+View user: - Link to send letter page
+
+Send letter: - nickname auto-filled out - write letter (IGNORE FOR NOW -- CHARACTER MINIMUM ATTACHED) (IGNORE FOR NOW -- confirmation before sending: are you sure you want to send, it will take time to be delivered?)
 
 Inbox: - Read tab, - Delivered tab - Unread tab/new tab, - Incoming tab (also displaying a countdown until letter delivery, and from whom the letter is from) - Sent tab (also displaying countdown until letter delivery, and the recipient)
 
