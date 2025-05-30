@@ -1,11 +1,16 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useAuth } from "react-oidc-context";
 
 export default function SendLetterPage() {
   const searchParams = useSearchParams();
   const toParam = searchParams.get("to") || "";
+  const auth = useAuth();
+
+  const senderId =
+    auth.user?.profile?.username ||
+    "unknown user, could not get from auth token";
 
   const [recipientId, setRecipientId] = useState(toParam);
   const [content, setContent] = useState("");
@@ -13,7 +18,6 @@ export default function SendLetterPage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  const senderId = "test-sender"; //TODO: replace with actual logged-in user sender-id
   const defaultDelayDays = 3;
 
   const handleSend = async () => {
