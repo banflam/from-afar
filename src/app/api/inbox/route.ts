@@ -3,8 +3,6 @@ import { ddb } from "@/lib/aws/dynamo";
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { Letter } from "@/types/Letter";
 
-const RECIPIENT_INDEX_NAME = "recipientId-index";
-
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const recipientId = searchParams.get("recipientId");
@@ -17,7 +15,7 @@ export async function GET(req: NextRequest) {
     const result = await ddb.send(
       new QueryCommand({
         TableName: "Letters",
-        IndexName: RECIPIENT_INDEX_NAME,
+        IndexName: "recipientId-index",
         KeyConditionExpression: "recipientId = :rid",
         ExpressionAttributeValues: {
           ":rid": recipientId,
