@@ -15,7 +15,6 @@ export default function SendLetterPage() {
 
   const senderId = "test-sender"; //TODO: replace with actual logged-in user sender-id
   const defaultDelayDays = 3;
-  
 
   const handleSend = async () => {
     if (!recipientId || !content) {
@@ -59,7 +58,8 @@ export default function SendLetterPage() {
       <input
         type="text"
         value={recipientId}
-        onChange={(e) => setRecipientId(e.target.value)}
+        disabled
+        //onChange={(e) => setRecipientId(e.target.value)}
         className="w-full border px-3 py-2 mb-4 rounded"
       />
       <label className="block mb-2 text-sm font-medium">Message</label>
