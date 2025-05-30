@@ -6,7 +6,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { username: string } }
 ) {
-  const { username } = params;
+  const { username } = await params;
 
   try {
     const result = await ddb.send(
