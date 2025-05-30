@@ -31,10 +31,10 @@ export default function PublicProfilePage() {
   return (
     <div className="max-w-xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-2">{profile.username}</h1>
-      <p className="text-sm text-gray-700 mb-1">
+      <p className="text-sm mb-1">
         Age: {profile.age} ---- {profile.gender}
       </p>
-      <p className="text-sm text-gray-700 mb-1">
+      <p className="text-sm mb-1">
         Location: {profile.city}, {profile.state}, {profile.country}
       </p>
       <p className="mt-4">{profile.bio}</p>
