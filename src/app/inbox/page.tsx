@@ -19,19 +19,45 @@ export default function InboxPage() {
   const [tab, setTab] = useState<"incoming" | "unread" | "read">("incoming");
   const auth = useAuth();
 
-  const recipientId = auth.user?.profile?.username || "";
+  const [recipientId, setRecipientId] = useState("");
   const [letters, setLetters] = useState<{
     incoming: Letter[];
     unread: Letter[];
     read: Letter[];
   }>({ incoming: [], unread: [], read: [] });
-
+  console.log("Inbox recipientId:", recipientId);
+  console.log("Auth profile:", auth.user?.profile);
   useEffect(() => {
-    if (!recipientId) return;
-    fetch(`/api/inbox?recipientId=${recipientId}`)
-      .then((res) => res.json())
-      .then((data) => setLetters(data));
-  }, [recipientId]);
+    const fetchProfileAndInbox = async () => {
+      if (!auth.user?.access_token) return;
+
+      try {
+        const res = await fetch("/api/profile", {
+          headers: {
+            Authorization: `Bearer ${auth.user.access_token}`,
+          },
+        });
+
+        const data = await res.json();
+        const username = data.username;
+
+        if (!username) {
+          console.error("Username missing from profile response");
+          return;
+        }
+
+        setRecipientId(username);
+
+        const inboxRes = await fetch(`/api/inbox?recipientId=${username}`);
+        const inboxData = await inboxRes.json();
+        setLetters(inboxData);
+      } catch (err) {
+        console.error("Failed to load profile/inbox", err);
+      }
+    };
+
+    fetchProfileAndInbox();
+  }, [auth.user]);
 
   if (!auth.user) {
     return <p className="p-4">Loading inbox...</p>;
