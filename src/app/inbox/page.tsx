@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Letter } from "@/types/Letter";
+import { useAuth } from "react-oidc-context";
 
 function formatTimeDiff(deliveryTime: Date) {
   const diff = deliveryTime.getTime() - Date.now();
@@ -16,20 +17,25 @@ function formatTimeDiff(deliveryTime: Date) {
 
 export default function InboxPage() {
   const [tab, setTab] = useState<"incoming" | "unread" | "read">("incoming");
+  const auth = useAuth();
+
+  const recipientId = auth.user?.profile?.username || "";
   const [letters, setLetters] = useState<{
     incoming: Letter[];
     unread: Letter[];
     read: Letter[];
   }>({ incoming: [], unread: [], read: [] });
 
-  const recipientId = "test-recipient"; // TODO: Replace with real user ID
-
   useEffect(() => {
+    if (!recipientId) return;
     fetch(`/api/inbox?recipientId=${recipientId}`)
       .then((res) => res.json())
       .then((data) => setLetters(data));
-  }, []);
+  }, [recipientId]);
 
+  if (!auth.user) {
+    return <p className="p-4">Loading inbox...</p>;
+  }
   const markAsRead = async (id: string) => {
     await fetch(`/api/letters/${id}/read`, { method: "PATCH" });
 
