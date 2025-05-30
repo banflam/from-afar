@@ -1,3 +1,4 @@
+TODO: MAKE THE APP LOOK NICER + DEPLOY THROUGH AWS!!!
 MVP:
 
 DONEUser visits the homepage and is able to login/signup.
