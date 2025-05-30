@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { ddb } from "@/lib/aws/dynamo";
 import { GetCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { jwtDecode } from "jwt-decode";
-//import { ScanCommand } from "@aws-sdk/client-dynamodb";
 
 type JwtPayload = {
   sub: string;
@@ -29,44 +28,6 @@ export async function PATCH(req: NextRequest) {
   const userId = decoded.sub;
 
   const body = await req.json();
-  /*
-  const desiredUsername = body.username;
-
-  const existing = await ddb.send(
-    new GetCommand({
-      TableName: TABLE,
-      Key: { userId },
-    })
-  );
-
-  const currentUsername = existing.Item?.username;
-
-  if (currentUsername && currentUsername !== desiredUsername) {
-    return NextResponse.json(
-      { error: "Username cannot be changed once set" },
-      { status: 400 }
-    );
-  }
-
-  if (!currentUsername) {
-    const scan = await ddb.send(
-      new ScanCommand({
-        TableName: TABLE,
-        FilterExpression: "#u = :desired",
-        ExpressionAttributeNames: { "#u": "username" },
-        ExpressionAttributeValues: { ":desired": desiredUsername },
-      })
-    );
-
-    if (scan.Count && scan.Count > 0) {
-      return NextResponse.json(
-        { error: "Username already taken" },
-        { status: 400 }
-      );
-    }
-  }
-  */
-
   const updates = {
     username: body.username,
     city: body.city,

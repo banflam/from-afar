@@ -1,7 +1,5 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
-
 export default function SendLetterPage() {
   const [recipientId, setRecipientId] = useState("");
   const [content, setContent] = useState("");

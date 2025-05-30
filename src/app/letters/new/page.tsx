@@ -8,6 +8,8 @@ export default function SendLetterPage() {
   const toParam = searchParams.get("to") || "";
   const auth = useAuth();
 
+  console.log("auth:", auth);
+
   const senderId =
     auth.user?.profile?.username ||
     "unknown user, could not get from auth token";
