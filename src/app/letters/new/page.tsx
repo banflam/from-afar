@@ -1,64 +1,9 @@
 "use client";
 export const dynamic = "force-dynamic"; // trying to tell NextJS to not statically pre-render this page
-import { Suspense, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { useAuth } from "react-oidc-context";
-import { SendLetterForm } from "./SendLetterForm";
+import { Suspense } from "react";
+import SendLetterForm from "./SendLetterForm";
 
 export default function SendLetterPage() {
-  const searchParams = useSearchParams();
-  const toParam = searchParams.get("to") || "";
-  const auth = useAuth();
-
-  console.log("auth:", auth);
-
-  const senderId =
-    auth.user?.profile?.username ||
-    "unknown user, could not get from auth token";
-
-  const [recipientId, setRecipientId] = useState(toParam);
-  const [content, setContent] = useState("");
-  const [sending, setSending] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
-
-  const defaultDelayDays = 3;
-
-  const handleSend = async () => {
-    if (!recipientId || !content) {
-      setError("Recipient and content are required");
-      return;
-    }
-
-    setSending(true);
-    setError("");
-    setSuccess(false);
-
-    const deliveryTime = new Date(
-      Date.now() + defaultDelayDays * 86400000
-    ).toISOString();
-
-    const res = await fetch("/api/letters", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        senderId,
-        recipientId,
-        content,
-        deliveryTime,
-      }),
-    });
-
-    if (!res.ok) {
-      setError("Failed to send letter");
-    } else {
-      setSuccess(true);
-      setContent("");
-      setRecipientId("");
-    }
-    setSending(false);
-  };
-
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <SendLetterForm />

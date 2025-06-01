@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "react-oidc-context";
 
-export function SendLetterForm() {
+export default function SendLetterForm() {
   const searchParams = useSearchParams();
   const toParam = searchParams.get("to") || "";
   const auth = useAuth();
