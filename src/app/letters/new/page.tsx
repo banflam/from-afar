@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic"; // trying to tell NextJS to not statically pre-render this page
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "react-oidc-context";
