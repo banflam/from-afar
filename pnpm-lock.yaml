@@ -14,6 +14,9 @@ importers:
       '@aws-sdk/lib-dynamodb':
         specifier: ^3.812.0
         version: 3.812.0(@aws-sdk/client-dynamodb@3.812.0)
+      jwt-decode:
+        specifier: ^4.0.0
+        version: 4.0.0
       next:
         specifier: 15.3.2
         version: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -39,6 +42,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.1.7
         version: 4.1.8
+      '@types/jwt-decode':
+        specifier: ^3.1.0
+        version: 3.1.0
       '@types/node':
         specifier: ^20
         version: 20.17.48
@@ -754,6 +760,10 @@ packages:
 
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+
+  '@types/jwt-decode@3.1.0':
+    resolution: {integrity: sha512-tthwik7TKkou3mVnBnvVuHnHElbjtdbM63pdBCbZTirCt3WAdM73Y79mOri7+ljsS99ZVwUFZHLMxJuJnv/z1w==}
+    deprecated: This is a stub types definition. jwt-decode provides its own type definitions, so you do not need this installed.
 
   '@types/node@20.17.48':
     resolution: {integrity: sha512-KpSfKOHPsiSC4IkZeu2LsusFwExAIVGkhG1KkbaBMLwau0uMhj0fCrvyg9ddM2sAvd+gtiBJLir4LAw1MNMIaw==}
@@ -3099,6 +3109,10 @@ snapshots:
   '@types/json-schema@7.0.15': {}
 
   '@types/json5@0.0.29': {}
+
+  '@types/jwt-decode@3.1.0':
+    dependencies:
+      jwt-decode: 4.0.0
 
   '@types/node@20.17.48':
     dependencies:
