@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "react-oidc-context";
 
@@ -58,35 +58,36 @@ export default function SendLetterPage() {
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Send a Letter</h1>
-      <label className="block mb-2 text-sm font-medium">Recipient ID</label>
-      <input
-        type="text"
-        value={recipientId}
-        disabled
-        //onChange={(e) => setRecipientId(e.target.value)}
-        className="w-full border px-3 py-2 mb-4 rounded"
-      />
-      <label className="block mb-2 text-sm font-medium">Message</label>
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        rows={6}
-        className="w-full border px-3 py-2 rounded mb-4"
-      />
-      <button
-        onClick={handleSend}
-        disabled={sending}
-        className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
-      >
-        {sending ? "Sending..." : "Send Letter"}
-      </button>
+    <Suspense>
+      <div className="p-6 max-w-xl mx-auto">
+        <h1 className="text-2xl font-bold mb-4">Send a Letter</h1>
+        <label className="block mb-2 text-sm font-medium">Recipient ID</label>
+        <input
+          type="text"
+          value={recipientId}
+          disabled
+          className="w-full border px-3 py-2 mb-4 rounded"
+        />
+        <label className="block mb-2 text-sm font-medium">Message</label>
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          rows={6}
+          className="w-full border px-3 py-2 rounded mb-4"
+        />
+        <button
+          onClick={handleSend}
+          disabled={sending}
+          className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          {sending ? "Sending..." : "Send Letter"}
+        </button>
 
-      {success && (
-        <p className="text-green-600 mt-4">Letter sent successfully</p>
-      )}
-      {error && <p className="text-red-600 mt-4">{error}</p>}
-    </div>
+        {success && (
+          <p className="text-green-600 mt-4">Letter sent successfully</p>
+        )}
+        {error && <p className="text-red-600 mt-4">{error}</p>}
+      </div>
+    </Suspense>
   );
 }
