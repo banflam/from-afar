@@ -3,14 +3,12 @@ import { ddb } from "@/lib/aws/dynamo";
 import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
 
 export async function PATCH(
-  req: NextRequest,
-  context: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ letterId: string }> }
 ) {
-  /*export async function PATCH(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {*/
-  const letterId = context.params.id;
+  const { letterId } = await params;
+
+  /*const letterId = context.params.id;*/
 
   if (!letterId) {
     return NextResponse.json({ error: "Missing letter ID" }, { status: 400 });
