@@ -33,6 +33,10 @@ Future thoughts:
         - Someone has sent a letter to the user (who has sent it and from where)
         - Letter delivered (who has sent it and from where)
 
+NOTES:
+
+Missing confirmation button for saving profile -- similar to the letter sent successfully message.
+
 +++++++++++++++++++++++++++++++++++++++
 
 Basic Idea: be penpals online, delay included.
