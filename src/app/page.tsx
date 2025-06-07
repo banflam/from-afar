@@ -29,6 +29,7 @@ export default function HomePage() {
         <Link href="/profile">
           Profile -- must complete your profile before you can send letters!
         </Link>
+        <br></br>
         <button onClick={() => auth.removeUser()}>Sign out</button>
       </div>
     );
@@ -37,6 +38,7 @@ export default function HomePage() {
   return (
     <div>
       <button onClick={() => auth.signinRedirect()}>Sign in</button>
+      <br></br>
       <button onClick={() => signOutRedirect()}>Sign out</button>
     </div>
   );
