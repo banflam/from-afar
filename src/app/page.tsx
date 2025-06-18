@@ -7,7 +7,8 @@ export default function HomePage() {
 
   const signOutRedirect = () => {
     const clientId = "6o2uld1loe0t9f07smc7sb98n1";
-    const logoutUri = "http://localhost:3000";
+    //const logoutUri = "http://localhost:3000";
+    const logoutUri = "https://from-afar.vercel.app/";
     const cognitoDomain =
       "https://us-east-2kevkqoqoa.auth.us-east-2.amazoncognito.com";
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
