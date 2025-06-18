@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 import { Letter } from "@/types/Letter";
 import { useAuth } from "react-oidc-context";
 
+const tabKeyMap = {
+  "On the way": "on_the_way",
+  Delivered: "delivered",
+  "Delivered and read": "delivered_and_read",
+} as const;
+
 function formatTimeDiff(deliveryTime: Date) {
   const diff = deliveryTime.getTime() - Date.now();
   if (diff <= 0) return "Now";
@@ -64,7 +70,7 @@ export default function SentPage() {
   if (!auth.user) {
     return <p className="p-4">Loading letters you sent...</p>;
   }
-  const selected = letters[tab];
+  const selected = letters[tabKeyMap[tab]];
 
   return (
     <div className="p-4 max-w-2xl mx-auto">
@@ -80,7 +86,8 @@ export default function SentPage() {
                 tab === t ? "bg-blue-600 text-white" : "bg-gray-200"
               }`}
             >
-              {t.charAt(0).toUpperCase() + t.slice(1)} ({letters[t].length})
+              {t.charAt(0).toUpperCase() + t.slice(1)} (
+              {letters[tabKeyMap[t]].length})
             </button>
           )
         )}
