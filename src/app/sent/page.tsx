@@ -15,17 +15,19 @@ function formatTimeDiff(deliveryTime: Date) {
   return `${days}d ${hours}h ${mins}m`;
 }
 
-export default function InboxPage() {
-  const [tab, setTab] = useState<"incoming" | "unread" | "read">("incoming");
+export default function SentPage() {
+  const [tab, setTab] = useState<
+    "On the way" | "Delivered" | "Delivered and read"
+  >("On the way");
   const auth = useAuth();
 
-  const [recipientId, setRecipientId] = useState("");
+  const [senderId, setSenderId] = useState("");
   const [letters, setLetters] = useState<{
-    incoming: Letter[];
-    unread: Letter[];
-    read: Letter[];
-  }>({ incoming: [], unread: [], read: [] });
-  console.log("Inbox recipientId:", recipientId);
+    on_the_way: Letter[];
+    delivered: Letter[];
+    delivered_and_read: Letter[];
+  }>({ on_the_way: [], delivered: [], delivered_and_read: [] });
+  console.log("senderId found and used:", senderId);
   console.log("Auth profile:", auth.user?.profile);
   useEffect(() => {
     const fetchProfileAndInbox = async () => {
@@ -46,13 +48,13 @@ export default function InboxPage() {
           return;
         }
 
-        setRecipientId(username);
+        setSenderId(username);
 
-        const inboxRes = await fetch(`/api/inbox?recipientId=${username}`);
-        const inboxData = await inboxRes.json();
-        setLetters(inboxData);
+        const sentRes = await fetch(`/api/sent?senderId=${username}`);
+        const sentData = await sentRes.json();
+        setLetters(sentData);
       } catch (err) {
-        console.error("Failed to load profile/inbox", err);
+        console.error("Failed to load letters sent from this user", err);
       }
     };
 
@@ -60,16 +62,8 @@ export default function InboxPage() {
   }, [auth.user]);
 
   if (!auth.user) {
-    return <p className="p-4">Loading inbox...</p>;
+    return <p className="p-4">Loading letters you sent...</p>;
   }
-  const markAsRead = async (id: string) => {
-    await fetch(`/api/letters/${id}/read`, { method: "PATCH" });
-
-    const res = await fetch(`/api/inbox?recipientId=${recipientId}`);
-    const data = await res.json();
-    setLetters(data);
-  };
-
   const selected = letters[tab];
 
   return (
