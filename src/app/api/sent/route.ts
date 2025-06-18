@@ -5,9 +5,9 @@ import { Letter } from "@/types/Letter";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const recipientId = searchParams.get("senderId");
+  const senderId = searchParams.get("senderId");
 
-  if (!recipientId) {
+  if (!senderId) {
     return NextResponse.json({ error: "Missing senderId" }, { status: 400 });
   }
 
@@ -15,10 +15,10 @@ export async function GET(req: NextRequest) {
     const result = await ddb.send(
       new QueryCommand({
         TableName: "Letters",
-        IndexName: "recipientId-index",
-        KeyConditionExpression: "recipientId = :rid",
+        IndexName: "senderId-index",
+        KeyConditionExpression: "senderId = :sid",
         ExpressionAttributeValues: {
-          ":rid": recipientId,
+          ":sid": senderId,
         },
       })
     );
