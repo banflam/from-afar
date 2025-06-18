@@ -71,17 +71,19 @@ export default function SentPage() {
       <h1 className="text-2xl font-bold mb-4">Inbox</h1>
 
       <div className="flex gap-4 mb-6">
-        {(["incoming", "unread", "read"] as const).map((t) => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={`px-4 py-2 rounded ${
-              tab === t ? "bg-blue-600 text-white" : "bg-gray-200"
-            }`}
-          >
-            {t.charAt(0).toUpperCase() + t.slice(1)} ({letters[t].length})
-          </button>
-        ))}
+        {(["On the way", "Delivered", "Delivered and read"] as const).map(
+          (t) => (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              className={`px-4 py-2 rounded ${
+                tab === t ? "bg-blue-600 text-white" : "bg-gray-200"
+              }`}
+            >
+              {t.charAt(0).toUpperCase() + t.slice(1)} ({letters[t].length})
+            </button>
+          )
+        )}
       </div>
 
       <div className="space-y-4">
@@ -94,25 +96,22 @@ export default function SentPage() {
               {new Date(letter.createdAt).toLocaleString()}
             </div>
 
-            {tab !== "incoming" && (
+            {tab !== "On the way" && (
               <div className="mt-2 text-gray-800 whitespace-pre-wrap">
                 {letter.content}
               </div>
             )}
 
-            {tab === "incoming" && (
+            {tab === "Delivered" && (
               <div className="text-xs text-orange-500 mt-2">
                 Available in: {formatTimeDiff(new Date(letter.deliveryTime))}
               </div>
             )}
 
-            {tab === "unread" && (
-              <button
-                onClick={() => markAsRead(letter.letter_id)}
-                className="mt-2 bg-green-500 text-white px-3 py-1 text-sm rounded"
-              >
-                Mark as Read
-              </button>
+            {tab === "Delivered and read" && (
+              <div className="text-xs text-orange-500 mt-2">
+                Delivered on: {letter.deliveryTime}
+              </div>
             )}
           </div>
         ))}
