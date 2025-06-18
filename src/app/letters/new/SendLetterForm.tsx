@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "react-oidc-context";
 
@@ -17,6 +17,34 @@ export default function SendLetterForm() {
   const [senderId, setSenderId] = useState("");
 
   const defaultDelayDays = 3;
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!auth.user?.access_token) return;
+
+      try {
+        const res = await fetch("/api/profile", {
+          headers: {
+            Authorization: `Bearer ${auth.user.access_token}`,
+          },
+        });
+
+        const data = await res.json();
+        const username = data.username;
+
+        if (!username) {
+          console.error("Username missing from profile response");
+          return;
+        }
+
+        setSenderId(username);
+      } catch (err) {
+        console.error("Failed to load profile", err);
+      }
+    };
+
+    fetchProfile();
+  }, [auth.user]);
 
   const handleSend = async () => {
     if (!recipientId || !content) {
@@ -44,11 +72,12 @@ export default function SendLetterForm() {
     });
 
     if (!res.ok) {
-      setError("Failed to send letter");
+      const errorText = await res.text();
+      setError(`Failed to send letter: ${errorText}`);
     } else {
       setSuccess(true);
       setContent("");
-      setRecipientId("");
+      setRecipientId(toParam);
     }
     setSending(false);
   };
