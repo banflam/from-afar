@@ -9,15 +9,12 @@ export default function SendLetterForm() {
   const toParam = searchParams.get("to") || "";
   const auth = useAuth();
 
-  const senderId =
-    auth.user?.profile?.username ||
-    "unknown user could not get from auth token";
-
   const [recipientId, setRecipientId] = useState(toParam);
   const [content, setContent] = useState("");
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [senderId, setSenderId] = useState("");
 
   const defaultDelayDays = 3;
 
