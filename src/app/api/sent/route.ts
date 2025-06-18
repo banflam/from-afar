@@ -26,16 +26,13 @@ export async function GET(req: NextRequest) {
     const letters = result.Items as Letter[];
     const now = new Date();
 
-    const incoming = letters.filter((l) => new Date(l.deliveryTime) > now);
-    const unread = letters.filter(
-      (l) => new Date(l.deliveryTime) <= now && !l.isRead
-    );
+    const on_the_way = letters.filter((l) => new Date(l.deliveryTime) > now);
+    const delivered = letters.filter((l) => new Date(l.deliveryTime) <= now);
+    const delivered_and_read = delivered.filter((l) => l.isRead);
 
-    const read = letters.filter((l) => l.isRead);
-
-    return NextResponse.json({ incoming, unread, read });
+    return NextResponse.json({ on_the_way, delivered, delivered_and_read });
   } catch (error) {
-    console.error("Inbox error:", error);
+    console.error("Sent letters API backend error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
