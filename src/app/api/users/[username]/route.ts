@@ -2,15 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { ddb } from "@/lib/aws/dynamo";
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 
-
-/*
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: Promise<{ letterId: string }> }
-) {
-  const { letterId } = await params;
-  */
-
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ username: string }> }
