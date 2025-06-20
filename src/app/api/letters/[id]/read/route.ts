@@ -8,8 +8,6 @@ export async function PATCH(
 ) {
   const { letterId } = await params;
 
-  /*const letterId = context.params.id;*/
-
   if (!letterId) {
     return NextResponse.json({ error: "Missing letter ID" }, { status: 400 });
   }
