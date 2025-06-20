@@ -103,9 +103,8 @@ export default function SentPage() {
               {new Date(letter.createdAt).toLocaleString()}
             </div>
 
-            {tab !== "On the way" && (
+            {tab === "On the way" && (
               <div className="mt-2 text-gray-800 whitespace-pre-wrap">
-                {letter.content}
                 Available in: {formatTimeDiff(new Date(letter.deliveryTime))}
               </div>
             )}
