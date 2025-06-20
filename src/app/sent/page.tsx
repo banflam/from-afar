@@ -99,7 +99,7 @@ export default function SentPage() {
         {selected.map((letter) => (
           <div key={letter.letter_id} className="border p-4 rounded shadow">
             <div className="text-sm text-gray-500">
-              From: {letter.senderId} - Sent:{" "}
+              To: {letter.recipientId} - Sent on:{" "}
               {new Date(letter.createdAt).toLocaleString()}
             </div>
 
