@@ -106,18 +106,19 @@ export default function SentPage() {
             {tab !== "On the way" && (
               <div className="mt-2 text-gray-800 whitespace-pre-wrap">
                 {letter.content}
+                Available in: {formatTimeDiff(new Date(letter.deliveryTime))}
               </div>
             )}
 
             {tab === "Delivered" && (
               <div className="text-xs text-orange-500 mt-2">
-                Available in: {formatTimeDiff(new Date(letter.deliveryTime))}
+                Delivered: {formatTimeDiff(new Date(letter.deliveryTime))}
               </div>
             )}
 
             {tab === "Delivered and read" && (
               <div className="text-xs text-orange-500 mt-2">
-                Delivered on: {letter.deliveryTime}
+                Delivered on: {formatTimeDiff(new Date(letter.deliveryTime))}
               </div>
             )}
           </div>
