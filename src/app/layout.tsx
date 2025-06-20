@@ -12,7 +12,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <h1>
-          <Link href="/">From Afar: friends at heart</Link>
+          <Link href="/">From Afar: Friends at heart</Link>
         </h1>
         <AuthProviderWrapper>{children}</AuthProviderWrapper>
       </body>
