@@ -74,7 +74,7 @@ export default function SentPage() {
 
   return (
     <div className="p-4 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Inbox</h1>
+      <h1 className="text-2xl font-bold mb-4">Your sent letters</h1>
 
       <div className="flex gap-4 mb-6">
         {(["On the way", "Delivered", "Delivered and read"] as const).map(
