@@ -22,11 +22,9 @@ export default function HomePage() {
     return (
       <div>
         <h2>Welcome {auth.user?.profile.email}</h2>
-        <Link href="/profile">
-          Profile -- must complete your profile before you can send letters!
-        </Link>
+        <Link href="/profile">Profile</Link>
         <br></br>
-        <Link href="/users">Users -- discover new people!</Link>
+        <Link href="/users">Users</Link>
         <br></br>
         <Link href="/inbox">Inbox</Link>
         <br></br>
