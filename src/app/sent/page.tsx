@@ -66,7 +66,7 @@ export default function SentPage() {
   }, [auth.user]);
 
   if (!auth.user) {
-    return <p className="p-4">Loading letters you sent...</p>;
+    return <p className="p-4">Loading the letters you sent...</p>;
   }
   const selected = letters[tabKeyMap[tab]];
 
