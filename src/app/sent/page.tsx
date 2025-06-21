@@ -27,7 +27,6 @@ export default function SentPage() {
   >("On the way");
   const auth = useAuth();
 
-  const [senderId, setSenderId] = useState("");
   const [letters, setLetters] = useState<{
     on_the_way: Letter[];
     delivered: Letter[];
@@ -51,8 +50,6 @@ export default function SentPage() {
           console.error("Username missing from profile response");
           return;
         }
-
-        setSenderId(username);
 
         const sentRes = await fetch(`/api/sent?senderId=${username}`);
         const sentData = await sentRes.json();
