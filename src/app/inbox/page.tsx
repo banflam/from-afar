@@ -12,7 +12,7 @@ function formatTimeDiff(deliveryTime: Date) {
   const hours = Math.floor(diff / 3600000) % 24;
   const days = Math.floor(diff / 86400000);
 
-  return `${days}d ${hours}h ${mins}m`;
+  return `${days} days ${hours} hours ${mins} minutes`;
 }
 
 export default function InboxPage() {

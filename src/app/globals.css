@@ -1,1 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;700&display=swap");
 @import "tailwindcss";
+
+body {
+  @apply font-sans text-gray-800 bg-[#F9F6F0];
+}
