@@ -73,10 +73,10 @@ export default function InboxPage() {
   const selected = letters[tab];
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Inbox</h1>
+    <div className="min-h-screen bg-paper px-4 py-8">
+      <h1 className="max-w-3xl mx-auto">Inbox</h1>
 
-      <div className="flex gap-4 mb-6">
+      <div className="flex gap-3 mb-6">
         {(["incoming", "unread", "read"] as const).map((t) => (
           <button
             key={t}
@@ -90,18 +90,23 @@ export default function InboxPage() {
         ))}
       </div>
 
-      <div className="space-y-4">
-        {selected.length === 0 && <p className="text-gray-500">No letters</p>}
+      <div className="space-y-6">
+        {selected.length === 0 && (
+          <p className="text-gray-500 font-serif">No letters</p>
+        )}
 
         {selected.map((letter) => (
-          <div key={letter.letter_id} className="border p-4 rounded shadow">
-            <div className="text-sm text-gray-500">
+          <div
+            key={letter.letter_id}
+            className="bg-white border border-gray-200 p-4 rounded-2xl shadow-sm p-5 transition hover:shadow-md"
+          >
+            <div className="font-medium text-postal-red">
               From: {letter.senderId} - Sent:{" "}
               {new Date(letter.createdAt).toLocaleString()}
             </div>
 
             {tab !== "incoming" && (
-              <div className="mt-2 text-gray-800 whitespace-pre-wrap">
+              <div className="mt-4 text-orange-600 font-medium italic">
                 {letter.content}
               </div>
             )}
