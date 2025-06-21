@@ -108,7 +108,7 @@ export default function InboxPage() {
 
             {tab === "incoming" && (
               <div className="text-xs text-orange-500 mt-2">
-                Available in: {formatTimeDiff(new Date(letter.deliveryTime))}
+                Arriving in: {formatTimeDiff(new Date(letter.deliveryTime))}
               </div>
             )}
 
