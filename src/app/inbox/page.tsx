@@ -98,7 +98,7 @@ export default function InboxPage() {
         {selected.map((letter) => (
           <div
             key={letter.letter_id}
-            className="bg-white border border-gray-200 p-4 rounded-2xl shadow-sm p-5 transition hover:shadow-md"
+            className="bg-white border border-gray-200 p-4 rounded-3xl shadow-sm p-5 transition hover:shadow-md"
           >
             <div className="font-medium text-postal-red">
               From: {letter.senderId} - Sent:{" "}
