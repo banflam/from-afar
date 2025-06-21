@@ -9,7 +9,6 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
 
     const { senderId, recipientId, content, deliveryTime } = body;
-    console.log("Received body", body);
 
     if (!senderId || !recipientId || !content || !deliveryTime) {
       return NextResponse.json(
@@ -28,7 +27,6 @@ export async function POST(req: NextRequest) {
       isRead: false,
     };
 
-    console.log("Putting letter into DynamoDB", body);
     await ddb.send(
       new PutCommand({
         TableName: "Letters",

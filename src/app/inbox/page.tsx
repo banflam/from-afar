@@ -25,8 +25,6 @@ export default function InboxPage() {
     unread: Letter[];
     read: Letter[];
   }>({ incoming: [], unread: [], read: [] });
-  console.log("Inbox recipientId:", recipientId);
-  console.log("Auth profile:", auth.user?.profile);
   useEffect(() => {
     const fetchProfileAndInbox = async () => {
       if (!auth.user?.access_token) return;

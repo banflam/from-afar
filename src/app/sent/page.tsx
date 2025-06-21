@@ -33,8 +33,6 @@ export default function SentPage() {
     delivered: Letter[];
     delivered_and_read: Letter[];
   }>({ on_the_way: [], delivered: [], delivered_and_read: [] });
-  console.log("senderId found and used:", senderId);
-  console.log("Auth profile:", auth.user?.profile);
   useEffect(() => {
     const fetchProfileAndInbox = async () => {
       if (!auth.user?.access_token) return;
