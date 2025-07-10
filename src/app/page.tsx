@@ -32,7 +32,7 @@ export default function HomePage() {
         {auth.isAuthenticated ? (
           <>
             <h2 className="text-2xl font-semibold mb-4">
-              Welcome, {auth.user?.profile.email}
+              Welcome {auth.user?.profile.email}
             </h2>
             <nav className="space-y-2 mb-6">
               <Link

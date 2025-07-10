@@ -121,11 +121,10 @@ export default function SendLetterForm() {
         rows={6}
         className="w-full border px-3 py-2 rounded mb-4"
       ></textarea>
-
       <button
         onClick={handleSendClick}
         disabled={sending}
-        className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+        className="bg-blue-600 text-white px-4 py-2 rounded shadow-md hover:bg-blue-700 active:translate-y-[1px] active:shadow-sm transition-all duration-100 disabled:opacity-50"
       >
         {sending ? "Sending..." : "Send Letter"}
       </button>
