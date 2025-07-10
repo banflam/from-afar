@@ -8,7 +8,7 @@ type Profile = {
   city: string;
   gender: string;
   bio: string;
-  dateOfBirth: string; //ISO string
+  dateOfBirth: string;
   latitude: number | null;
   longitude: number | null;
 };
@@ -22,32 +22,18 @@ export default function ProfilePage() {
   const auth = useAuth();
 
   const handleSave = async () => {
-    if (!auth.user?.access_token) {
-      setError("Missing auth token");
-      return;
-    }
-
-    if (!profile) {
-      setError("No profile data");
+    if (!auth.user?.access_token || !profile) {
+      setError("Missing auth token or profile");
       return;
     }
 
     if (profile.latitude == null || profile.longitude == null) {
-      setError("Location not yet available, please allow location access");
-      setSaving(false);
+      setError("Location not available. Please allow location access.");
       return;
     }
 
     setSaving(true);
     setError("");
-
-    const token = auth.user?.access_token;
-
-    if (!token) {
-      setError("Not authenticated");
-      setSaving(false);
-      return;
-    }
 
     const res = await fetch("/api/profile", {
       method: "PATCH",
@@ -58,10 +44,7 @@ export default function ProfilePage() {
       body: JSON.stringify(profile),
     });
 
-    if (!res.ok) {
-      setError("Failed to save profile");
-    }
-
+    if (!res.ok) setError("Failed to save profile");
     setSaving(false);
   };
 
@@ -72,24 +55,22 @@ export default function ProfilePage() {
     const loadProfileWithLocation = async () => {
       try {
         const res = await fetch("/api/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
 
-        if (!("geolocation" in navigator)) {
+        if (!navigator.geolocation) {
           setError("Geolocation not supported");
           setLoading(false);
           return;
         }
 
         navigator.geolocation.getCurrentPosition(
-          (position) => {
+          (pos) => {
             setProfile({
               ...data,
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
+              latitude: pos.coords.latitude,
+              longitude: pos.coords.longitude,
             });
             setLoading(false);
           },
@@ -100,7 +81,7 @@ export default function ProfilePage() {
           }
         );
       } catch (err) {
-        console.error("Failed to load profile", err);
+        console.error("Load profile failed:", err);
         setError("Failed to load profile");
         setLoading(false);
       }
@@ -114,75 +95,94 @@ export default function ProfilePage() {
     setProfile({ ...profile, [field]: value });
   };
 
-  if (loading) return <p className="p-4">Loading...</p>;
-  if (!profile) return <p className="p-4 text-red-500">{error}</p>;
+  if (loading) return <p className="text-center mt-10">Loading...</p>;
+  if (!profile)
+    return <p className="text-center text-red-500 mt-10">{error}</p>;
 
   return (
-    <div className="max-w-xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Edit Profile</h1>
-      <label className="block mb-2 text-sm">City</label>
-      <input
-        type="text"
-        value={profile.city}
-        onChange={(e) => handleChange("city", e.target.value)}
-        className="border px-3 py-2 mb-4 w-full rounded"
-      ></input>
+    <div className="max-w-2xl mx-auto px-6 py-8">
+      <h1 className="text-3xl font-bold mb-6 text-center">Edit Profile</h1>
 
-      <label className="block mb-2 text-sm">Gender</label>
-      <select
-        value={profile.gender || ""}
-        onChange={(e) => handleChange("gender", e.target.value)}
-        className="border px-3 py-2 mb-4 w-full rounded"
-      >
-        <option value="" disabled>
-          Select gender
-        </option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-      </select>
+      <div className="bg-white shadow-md rounded-xl p-6 space-y-4">
+        <div>
+          <label className="block text-sm font-medium mb-1">City</label>
+          <input
+            type="text"
+            value={profile.city}
+            onChange={(e) => handleChange("city", e.target.value)}
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-      <label className="block mb-2 text-sm">Username</label>
-      <input
-        type="text"
-        value={profile.username || ""}
-        onChange={(e) => handleChange("username", e.target.value)}
-        className="border px-3 py-2 mb-4 w-full rounded"
-      />
+        <div>
+          <label className="block text-sm font-medium mb-1">Gender</label>
+          <select
+            value={profile.gender || ""}
+            onChange={(e) => handleChange("gender", e.target.value)}
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="" disabled>
+              Select gender
+            </option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
 
-      <label className="block mb-2 text-sm">Date of Birth</label>
-      <input
-        type="date"
-        value={profile.dateOfBirth}
-        onChange={(e) => handleChange("dateOfBirth", e.target.value)}
-        className="border px-3 py-2 mb-4 w-full rounded"
-      />
+        <div>
+          <label className="block text-sm font-medium mb-1">Username</label>
+          <input
+            type="text"
+            value={profile.username}
+            onChange={(e) => handleChange("username", e.target.value)}
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-      {profile.latitude && profile.longitude && (
-        <p className="text-sm text-gray-500 mb-4">
-          Location detected: {profile.latitude.toFixed(3)},{" "}
-          {profile.longitude.toFixed(3)}
-        </p>
-      )}
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Date of Birth
+          </label>
+          <input
+            type="date"
+            value={profile.dateOfBirth}
+            onChange={(e) => handleChange("dateOfBirth", e.target.value)}
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-      <label className="block mb-2 text-sm">Bio</label>
-      <textarea
-        value={profile.bio}
-        onChange={(e) => handleChange("bio", e.target.value)}
-        rows={4}
-        className="border px-3 py-2 mb-4 w-full rounded"
-      ></textarea>
-      <button
-        onClick={handleSave}
-        disabled={
-          saving || profile?.latitude == null || profile?.longitude == null
-        }
-        className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
-      >
-        {saving ? "Saving..." : "Save"}
-      </button>
+        {profile.latitude && profile.longitude && (
+          <p className="text-sm text-gray-500">
+            Location: {profile.latitude.toFixed(3)},{" "}
+            {profile.longitude.toFixed(3)}
+          </p>
+        )}
 
-      {error && <p className="text-red-500 mt-4">{error}</p>}
+        <div>
+          <label className="block text-sm font-medium mb-1">Bio</label>
+          <textarea
+            value={profile.bio}
+            onChange={(e) => handleChange("bio", e.target.value)}
+            rows={4}
+            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <button
+          onClick={handleSave}
+          disabled={
+            saving || profile.latitude == null || profile.longitude == null
+          }
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded font-semibold transition disabled:opacity-50"
+        >
+          {saving ? "Saving..." : "Save Changes"}
+        </button>
+
+        {error && (
+          <p className="text-red-600 text-sm mt-2 text-center">{error}</p>
+        )}
+      </div>
     </div>
   );
 }
