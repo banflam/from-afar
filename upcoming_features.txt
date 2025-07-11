@@ -1,0 +1,7 @@
+- Switch modes option -- flat delay instead of distance-based
+
+- Creation of avatars for each person (important feature!!!)
+
+- Addition of languages for each person, and any corresponding suport for them - Last logged-in date visibility - Filters for choosing users from /users - Email notification whenever: - Someone has sent a letter to the user (who has sent it and from where) - Letter delivered (who has sent it and from where)
+
+Notificiation whenever the first letter arrives
